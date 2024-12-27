@@ -24,11 +24,9 @@ const boardList = [
     },
 ];
 
-
 app.get('/write', (req, res)=>{
     res.sendFile(dirPath + "/write.html");
 });
-
 
 
 app.get('/list', (req, res)=>{
@@ -36,8 +34,6 @@ app.get('/list', (req, res)=>{
         {boardList},
     );
 });
-
-
 
 app.get('/view/:id', (req, res)=>{
     const { id } = req.params;
@@ -47,7 +43,6 @@ app.get('/view/:id', (req, res)=>{
         {board},
     );
 });
-
 
 app.get('/modify/:id', (req, res)=>{
     const { id } = req.params;
@@ -82,8 +77,6 @@ app.post('/write', (req, res)=>{
     res.redirect('/list');
 });
 
-
-
 app.post('/modify/:id', (req, res)=>{
     const { id } = req.params;
     const {user_id, title, content} = req.body;
@@ -112,7 +105,10 @@ app.post('/delete/:id', (req, res)=>{
     res.redirect(`/list`)
 });
 
+
+//에러 발생 지점 체크
 app.use((err, req, res, next) =>{
+    console.log(err.url);
     res.redirect(`/list`)
 })
 
