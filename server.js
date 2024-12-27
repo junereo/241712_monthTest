@@ -25,36 +25,56 @@ const boardList = [
 ];
 
 
-app.get('/write', (res, req)=>{
+app.get('/write', (req, res)=>{
 
 });
 
 
 
-app.get('/list', (res, req)=>{
+app.get('/list', (req, res)=>{
+    res.render('board/list.html',
+        {boardList},
+    );
+});
+
+
+
+app.get('/view', (req, res)=>{
 
 });
 
 
 
-app.get('/view', (res, req)=>{
+app.get('/modify/:id', (req, res)=>{
+    const { id } = req.params;
+    const board = boardList.find(value => value.id === parseInt(id));
+
+    res.render('board/modify.html',
+        {board},
+    );
+
+    console.log(board);
 
 });
 
 
-
-app.get('/modify', (res, req)=>{
-
-});
-
-
-app.post('/write', (res, req)=>{
-
+app.post('/write', (req, res)=>{
+    
 });
 
 
 
-app.post('/modify', (res, req)=>{
+app.post('/modify/:id', (req, res)=>{
+    const { id } = req.params;
+    const {user_id, title, content} = req.body;
+
+    const index = boardList.findIndex(value => value.id === parseInt(id))
+
+    boardList[index].user_id = user_id;
+    boardList[index].title = title;
+    boardList[index].content = content;
+
+    res.redirect(`/list`)
 
 });
 

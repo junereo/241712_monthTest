@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수정하기기</title>
+</head>
+<body>
+    <form action="/modify/{{board.id}}" method="post">
+        <div class="board-item">
+            <input type="text" name="user_id" value="{{board.user_id}}" >
+            <input type="text" name="title" value="{{board.title}}">
+            <input type="text" name="content" value="{{board.content}}">
+            <button type="submit"> 수정하기</button>
+        </div>
+    </form>
+</body>
+</html>

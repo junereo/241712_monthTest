@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 목록</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        ul, li{
+            width : 750px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 1px 0;
+        }
+        li{
+            width: 250px;
+            display: flex;
+            justify-content: center;
+            
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>아이디</li>
+        <li>제목</li>
+        <li>조회수</li>
+    </ul>
+    {% for view in boardList %}
+        <form action="#" method="post">
+            <ul>
+                <li>{{ view.user_id}}</li>
+                <li><a href="/modify/{{ view.id}}">{{ view.title}}</a></li>
+                <li>{{ view.hit}}</li>
+            </ul>
+        </form>
+    {% endfor %}
+</body>
+</html>
