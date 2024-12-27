@@ -26,7 +26,7 @@ const boardList = [
 
 
 app.get('/write', (req, res)=>{
-
+    res.sendFile(dirPath + "/write.html");
 });
 
 
@@ -39,16 +39,19 @@ app.get('/list', (req, res)=>{
 
 
 
-app.get('/view', (req, res)=>{
-
+app.get('/view/:id', (req, res)=>{
+    const { id } = req.params;
+    const board = boardList.find(value => value.id === parseInt(id));
+    board.hit += 1;
+    res.render('board/view.html',
+        {board},
+    );
 });
-
 
 
 app.get('/modify/:id', (req, res)=>{
     const { id } = req.params;
     const board = boardList.find(value => value.id === parseInt(id));
-
     res.render('board/modify.html',
         {board},
     );
@@ -57,9 +60,26 @@ app.get('/modify/:id', (req, res)=>{
 
 });
 
-
 app.post('/write', (req, res)=>{
-    
+    const {user_id, title, content} = req.body;
+
+    let index = 0;
+    if(boardList.length > 0){
+        index = boardList.at(-1).id;
+    }
+
+    boardList.push(
+        {
+            id: index + 1,
+            user_id: user_id,
+            writer: user_id,
+            title: title,
+            content: content,
+            hit: 0,
+        }
+    )
+
+    res.redirect('/list');
 });
 
 
@@ -78,6 +98,23 @@ app.post('/modify/:id', (req, res)=>{
 
 });
 
+app.post('/delete/:id', (req, res)=>{
+    const { id } = req.params;
+
+    const index = boardList.findIndex(value => value.id === parseInt(id))
+
+    if(index === -1){
+        throw Error("삭제 하려는 게시글이 없습니다.");
+    }
+
+    boardList.splice(index,1);
+
+    res.redirect(`/list`)
+});
+
+app.use((err, req, res, next) =>{
+    res.redirect(`/list`)
+})
 
 app.listen(3000, ()=>{
     console.log("서버와 연결 되었습니다.");

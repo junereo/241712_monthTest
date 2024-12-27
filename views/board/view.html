@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상세 보기</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .content{
+            max-width: 750px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        ul, li{
+            width : 750px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 1px 0;
+        }
+        li{
+            width: 250px;
+            display: flex;
+            justify-content: center;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <a href="/list">목록으로 가기</a>
+        <form action="/delete/{{ board.id }}" method="post">
+            <button type="submit" >삭제하기</button>
+        </form>
+        <ul>
+            <li>아이디</li>
+            <li>제목</li>
+            <li>내용</li>
+            <li>-</li>
+        </ul>
+        <form action="/modify/{{ board.id }}" method="get">
+            <ul>
+                <li>{{ board.user_id}}</li>
+                <li>{{ board.title}}</li>
+                <li>{{ board.content }}</li>
+                <li><button type="submit" >수정하기</button></li>
+            </ul>
+        </form>
+    </div>
+</body>
+</html>

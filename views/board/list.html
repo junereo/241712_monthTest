@@ -9,6 +9,12 @@
             padding: 0;
             margin: 0;
         }
+        .content{
+            max-width: 750px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         ul, li{
             width : 750px;
             list-style: none;
@@ -25,19 +31,22 @@
     </style>
 </head>
 <body>
-    <ul>
-        <li>아이디</li>
-        <li>제목</li>
-        <li>조회수</li>
-    </ul>
-    {% for view in boardList %}
-        <form action="#" method="post">
-            <ul>
-                <li>{{ view.user_id}}</li>
-                <li><a href="/modify/{{ view.id}}">{{ view.title}}</a></li>
-                <li>{{ view.hit}}</li>
-            </ul>
-        </form>
-    {% endfor %}
+   <div class="content">
+        <a href="/write">글 작성하기</a>
+        <ul>
+            <li>아이디</li>
+            <li>제목</li>
+            <li>조회수</li>
+        </ul>
+        {% for view in boardList %}
+            <form action="#" method="post">
+                <ul>
+                    <li>{{ view.user_id}}</li>
+                    <li><a href="/view/{{ view.id}}">{{ view.title}}</a></li>
+                    <li>{{ view.hit }}</li>
+                </ul>
+            </form>
+        {% endfor %}
+    </div>
 </body>
 </html>
